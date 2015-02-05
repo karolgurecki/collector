@@ -12,13 +12,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  * Created by goreckik on 2015-02-03.
  */
 @Configuration
-@EnableWebMvc
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
+public class WebMvcConfig {
 
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver() {
@@ -26,13 +20,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         internalResourceViewResolver.setPrefix("/");
         internalResourceViewResolver.setSuffix(".html");
         return internalResourceViewResolver;
-    }
-
-    @Bean
-    public MappingJackson2JsonView mappingJackson2JsonView() {
-        MappingJackson2JsonView mappingJackson2JsonView = new MappingJackson2JsonView();
-        mappingJackson2JsonView.setPrefixJson(true);
-        return mappingJackson2JsonView;
     }
 
 }
