@@ -2,15 +2,14 @@ package org.karolgurecki.collector.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.h2.Driver;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.sql.DataSource;
-import java.util.Properties;
 
 /**
  * Created by goreckik on 2015-02-03.
@@ -24,7 +23,6 @@ public class AppConfig {
 
         sessionFactory.setDataSource(h2DataSource());
         sessionFactory.setPackagesToScan("org.karolgurecki.collector.model");
-        sessionFactory.setHibernateProperties(getHibernateProps());
 
         return sessionFactory;
     }
@@ -41,20 +39,12 @@ public class AppConfig {
         return dataSource;
     }
 
-    private Properties getHibernateProps() {
-        Properties properties = new Properties();
-
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        properties.setProperty("hibernate.show_sql", "false");
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        properties.setProperty("hibernate.id.new_generator_mappings", "true");
-
-        return properties;
-    }
-
     @Bean
-    @Autowired
-    public HibernateTransactionManager hibernateTransactionManager(SessionFactory sessionFactory) {
-        return new HibernateTransactionManager(sessionFactory);
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
+        hibernateJpaVendorAdapter.setShowSql(true);
+        hibernateJpaVendorAdapter.setGenerateDdl(true); //Auto creating scheme when true
+        hibernateJpaVendorAdapter.setDatabase(Database.H2);//Database type
+        return hibernateJpaVendorAdapter;
     }
 }

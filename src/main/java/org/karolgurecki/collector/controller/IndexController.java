@@ -1,6 +1,5 @@
 package org.karolgurecki.collector.controller;
 
-import org.karolgurecki.collector.Buu;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +17,4 @@ public class IndexController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping(value = "k", method = RequestMethod.GET)
-    public Buu test() {
-        return new Buu("hh");
-
-    }
 }
