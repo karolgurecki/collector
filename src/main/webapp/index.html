@@ -5,8 +5,18 @@
     <script src="app.js"></script>
 </head>
 <body ng-controller="test">
-<p>Nothing here {{'yet' + '!'}}</p>
-{{d}}<br>
-<button ng-click="h()">cdfvgbhnj</button>
+<form novalidate name="loginForm" class="simple-form">
+    <p>
+        Username: <input type="text" ng-model="user.username"/>
+    </p>
+
+    <p>
+        Password: <input type="password" ng-model="user.password"/>
+    </p>
+
+    <p>
+        <button ng-click="h(user)">Log in</button>
+    </p>
+</form>
 </body>
 </html>
